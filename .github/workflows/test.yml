@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
@@ -19,10 +19,11 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
+      - run: npm run install
       - run: npm run lint
 
   typecheck:
@@ -30,10 +31,11 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
+      - run: npm run install
       - run: npx tsc
 
   test-postgres:
