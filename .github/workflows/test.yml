@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: npm run install
+      - run: npm install
       - run: npm run lint
 
   typecheck:
@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: npm run install
+      - run: npm install
       - run: npx tsc
 
   test-postgres:
