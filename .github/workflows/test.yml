@@ -40,7 +40,7 @@ jobs:
           MYSQL_PASSWORD: password
           MYSQL_ROOT_PASSWORD: password
         ports:
-          - '3305:3306'
+          - '3306:3306'
     steps:
       - uses: actions/checkout@v2
 
