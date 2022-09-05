@@ -29,4 +29,4 @@ jobs:
 
       - name: Run Tests "${{ matrix.db.name }}"
         if: ${{ matrix.db.needsDocker }}
-        run: DB_SERVICE_NAME=${{ matrix.db.serviceName }} docker-compose -f scripts/docker-compose.yml
+        run: DB_SERVICE_NAME=${{ matrix.db.serviceName }} docker-compose -f scripts/docker-compose.yml run lucid
