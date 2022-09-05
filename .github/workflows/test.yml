@@ -2,12 +2,22 @@ name: test
 on:
   - push
   - pull_request
+
 jobs:
   build:
+    strategy:
+      matrix:
+        db:
+          [
+            { name: SQLite, command: 'npm run test:sqlite' },
+            { name: BetterSQLite, command: 'npm run test:better_sqlite' },
+          ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Install
         run: npm install
-      - name: Run tests
-        run: npm run test
+
+      - name: Run Tests "${{ matrix.db.name }}"
+        run: ${{ matrix.db.command }}
