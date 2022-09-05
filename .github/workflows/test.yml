@@ -49,6 +49,29 @@ jobs:
       - name: Run Mysql Tests
         run: npm run test:mysql
 
+  test-mysql-legacy:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: lucid
+          MYSQL_USER: virk
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - '3306:3306'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Install
+        run: npm install
+      - name: Run Mysql Tests
+        run: npm run test:mysql_legacy
+
   test-sqlite:
     runs-on: ubuntu-latest
     strategy:
@@ -64,3 +87,24 @@ jobs:
         run: npm install
       - name: Run Sqlite Tests
         run: npm run test:${{ matrix.lib }}
+
+  test-mssql:
+    runs-on: ubuntu-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: 'arandom&233password'
+          ACCEPT_EULA: 'Y'
+        ports:
+          - '21433:1433'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Install
+        run: npm install
+      - name: Run Mssql Tests
+        run: npm run test:mssql
