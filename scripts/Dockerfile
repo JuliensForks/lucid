@@ -12,10 +12,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN HUSKY_SKIP_INSTALL=1 npm install --build-from-source --python=/usr/bin/python3
 
-RUN echo 'done'
 RUN wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
-RUN echo 'done'
 
 COPY . .
 
