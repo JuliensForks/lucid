@@ -17,15 +17,12 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v2
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
-
       - name: Install
         run: npm install
-
       - name: Run Postgres Tests
         run: npm run test:pg
 
@@ -43,14 +40,27 @@ jobs:
           - '3306:3306'
     steps:
       - uses: actions/checkout@v2
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
-
       - name: Install
         run: npm install
-
       - name: Run Mysql Tests
         run: npm run test:mysql
+
+  test-sqlite:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lib: ['sqlite', 'better_sqlite']
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Install
+        run: npm install
+      - name: Run Sqlite Tests
+        run: npm run test:${{ matrix.lib }}
