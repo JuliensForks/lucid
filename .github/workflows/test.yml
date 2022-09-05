@@ -11,6 +11,7 @@ jobs:
           [
             { name: SQLite, command: 'npm run test:sqlite' },
             { name: BetterSQLite, command: 'npm run test:better_sqlite' },
+            { name: PostgreSQL, needsDocker: true, serviceName: 'pg' },
           ]
     runs-on: ubuntu-latest
     steps:
@@ -20,4 +21,12 @@ jobs:
         run: npm install
 
       - name: Run Tests "${{ matrix.db.name }}"
+        if: matrix.db.command
         run: ${{ matrix.db.command }}
+
+      - name: Run Tests "${{ matrix.db.name }}"
+        if: ${{ matrix.db.needsDocker }}
+        run: |
+          docker-compose -f scripts/docker-compose.yml run \
+           -e LINKED_SERVICE="${{ matrix.db.serviceName }}" \
+            npm run test:${{ matrix.db.serviceName }}
