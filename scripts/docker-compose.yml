@@ -6,7 +6,8 @@ services:
       context: ../
       dockerfile: ./scripts/Dockerfile
     links:
-      - ${LINKED_SERVICE}
+      - ${DB_SERVICE_NAME}
+    command: npm run test:${DB_SERVICE_NAME}
 
   mysql_legacy:
     platform: linux/x86_64
@@ -72,7 +73,7 @@ services:
     expose:
       - '5432'
 
-  microsoftsql:
+  mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
       - 21433:1433
