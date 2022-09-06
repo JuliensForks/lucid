@@ -1,14 +1,5 @@
 version: '3.4'
 services:
-
-  lucid:
-    build:
-      context: ../
-      dockerfile: ./scripts/Dockerfile
-    links:
-      - ${DB_SERVICE_NAME}
-    command: npm run test:${DB_SERVICE_NAME}
-
   mysql_legacy:
     platform: linux/x86_64
     image: mysql:5.7
